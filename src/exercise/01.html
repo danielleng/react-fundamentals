@@ -14,3 +14,30 @@
 <!-- 🐨 Append the div to the root div using `append` -->
 <!--   💰 document.getElementById('root') -->
 <!--   📜 https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/append -->
+
+<!doctype html>
+<html lang="">
+  <head>
+    <title>React fundamentals - 01 - Hello World</title>
+  </head>
+
+  <body>
+    <!-- <div id="root"></div> -->
+
+    <script type="module">
+      const rootEl = document.createElement('div');
+      rootEl.setAttribute('id', 'root');
+      document.body.append(rootEl);
+
+      const el = document.createElement('div');
+      el.textContent = 'Hello World!';
+      el.className = 'container';
+
+      // rootEl.appendChild(el);
+      // ParentNode.append() allows you to also append DOMString objects, whereas Node.appendChild() only accepts Node objects.
+      // ParentNode.append() has no return value, whereas Node.appendChild() returns the appended Node object.
+      // ParentNode.append() can append several nodes and strings, whereas Node.appendChild() can only append one node.
+      rootEl.append(el);
+    </script>
+  </body>
+</html>
