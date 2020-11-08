@@ -31,6 +31,10 @@
 
     const element = <div {...props} />;
 
+    // Daniel Leng: notes on spread operator
+    // Position matters. The props further to the right will overwrite ones on the left
+    const elementTest = <div {...props} className="containerOverwrite" />;
+
     // 💰 there are a few subtle differences between JSX and HTML. One such
     // difference is how you apply a class to an element in JSX is by using
     // `className` rather than `class`!
