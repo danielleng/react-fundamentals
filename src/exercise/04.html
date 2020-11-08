@@ -6,8 +6,14 @@
   <script src="https://unpkg.com/react@16.13.1/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@16.13.1/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone@7.9.3/babel.js"></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
   <script type="text/babel">
     // 🐨 Make a function called `message` which returns the JSX we want to share
+    function Message({children}) {
+      return (
+        <div className="message">{children}</div>
+      );
+    }
 
     // 🐨 use that function in place of the divs below with:
     // 💰 {message({children: 'Hello World'})} {message({children: 'Goodbye World'})}
@@ -18,7 +24,85 @@
       </div>
     )
 
+    // Daniel Leng - Exercise
+    const element2 = (
+      <div className="container">
+        {Message({children: 'Hello World'})}
+        {Message({children: 'Goodbye World'})}
+      </div>
+    );
+
+    // Daniel Leng - Extra Credit 01: using a custom component with React.createElement
+    const element3 = React.createElement(
+      Message,
+      {children: 'Hello World'},
+    );
+
+    // Daniel Leng - Extra Credit 02: using a custom component with JSX
+    const element4 = (
+      <div className="container">
+        <Message>Hello World</Message>
+        <Message>Goodbye World</Message>
+      </div>
+    );
+
+    // Daniel Leng - Extra Credit 03: runtime validation with PropTypes
+    function Message2({subject, greeting}) {
+      return (
+        <div className="message">
+          {greeting}, {subject}
+        </div>
+      );
+    }
+
+    Message2.propTypes = {
+      greeting(props, propName, componentName) {
+        const type = typeof props[propName];
+        if (type !== 'string' || props[propName].length === 0) {
+          return new Error(`${propName} must not be empty.`);
+        }
+      },
+    };
+
+    const element5 = (
+      <div className="container">
+        <Message2 greeting="Hello" subject="World" />
+        <Message2 greeting="Goodbye" subject="World" />
+      </div>
+    );
+
+    // Daniel Leng - Extra Credit 04: using the prop-types package
+    function Message3({subject, greeting}) {
+      return (
+        <div className="message">
+          {greeting}, {subject}
+        </div>
+      );
+    }
+
+    Message3.propTypes = {
+      subject: PropTypes.string.isRequired,
+      greeting: PropTypes.string.isRequired,
+    };
+
+    const element6 = (
+      <div className="container">
+        <Message3 greeting="Hello" subject="World" />
+        <Message3 greeting="Goodbye" subject="World" />
+      </div>
+    );
+
+    // Daniel Leng - Extra Credit 05: React fragments
+    // Fragments allow you to put two elements side by side for those cases where the DOM structure is important, e.g. flexbox or grid
+    const element7 = (
+      <React.Fragment>
+        <Message3 greeting="Hello" subject="World" />
+        <Message3 greeting="Goodbye" subject="World" />
+      </React.Fragment>
+    );
+
     // 💯 This is only the first step to making actual React components. The rest is in the extra credit!
-    ReactDOM.render(element, document.getElementById('root'))
+    // ReactDOM.render(element, document.getElementById('root'))
+    ReactDOM.render(element6, document.getElementById('root'))
   </script>
 </body>
