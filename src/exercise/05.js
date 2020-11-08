@@ -12,16 +12,54 @@ import '../box-styles.css'
 
 // 🐨 add a style prop to each of them as well so their background color
 // matches what the text says it should be as well as `fontStyle: 'italic'`
-const smallBox = <div>small lightblue box</div>
-const mediumBox = <div>medium pink box</div>
-const largeBox = <div>large orange box</div>
+const smallBox = <div className="box box--small" style={{backgroundColor: 'lightblue'}}>small lightblue box</div>
+const mediumBox = <div className="box box--medium" style={{backgroundColor: 'pink'}}>medium pink box</div>
+const largeBox = <div className="box box--large" style={{backgroundColor: 'orange'}}>large orange box</div>
+
+// function App() {
+//   return (
+//     <div>
+//       {smallBox}
+//       {mediumBox}
+//       {largeBox}
+//     </div>
+//   )
+// }
+
+// Daniel Leng - Extra Credit 01: Custom Component
+function Box({className = '', style, ...otherProps}) {
+  return <div className={`box ${className}`} style={{fontStyle: 'italic', ...style}} {...otherProps}></div>
+}
+
+// function App() {
+//   return (
+//     <div>
+//       <Box className="box--small" style={{backgroundColor: 'lightblue'}}>small lightblue box</Box>
+//       <Box className="box--medium" style={{backgroundColor: 'pink'}}>medium pink box</Box>
+//       <Box className="box--large" style={{backgroundColor: 'orange'}}>large orange box</Box>
+//     </div>
+//   )
+// }
+
+// Daniel Leng - Extra Credit 02: Accept a size prop to encapsulate styling
+function SizedBox({size, className = '', style, ...otherProps}) {
+  const sizeClassName = size ? `box--${size}` : '';
+  return(
+    <div
+      className={`box ${className} ${sizeClassName}`}
+      style={{fontStyle: 'italic', ...style}}
+      {...otherProps}
+    >
+    </div>
+  );
+}
 
 function App() {
   return (
     <div>
-      {smallBox}
-      {mediumBox}
-      {largeBox}
+      <SizedBox size="small" style={{backgroundColor: 'lightblue'}}>small lightblue box</SizedBox>
+      <SizedBox size="medium" style={{backgroundColor: 'pink'}}>medium pink box</SizedBox>
+      <SizedBox size="large" style={{backgroundColor: 'orange'}}>large orange box</SizedBox>
     </div>
   )
 }
